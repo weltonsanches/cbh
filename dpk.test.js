@@ -1,10 +1,5 @@
-const crypto = require("crypto");
 const { deterministicPartitionKey } = require("./dpk");
-
-const encryptCandidate = (data) => crypto
-  .createHash("sha3-512")
-  .update(data)
-  .digest("hex");
+const { encryptCandidate } = require("./utils");
 
 const generateBigString = () => Array(300).fill('test').join('-')
 
