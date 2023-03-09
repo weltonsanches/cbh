@@ -16,3 +16,27 @@ Based on the information given, break this ticket down into 2-5 individual ticke
 You will be graded on the level of detail in each ticket, the clarity of the execution plan within and between tickets, and the intelligibility of your language. You don't need to be a native English speaker, but please proof-read your work.
 
 ## Your Breakdown Here
+### Strategy
+We will keep using our internal database id in our internal functions (probably `getShiftsByFacility` is using it as Foreign Key to Agents table).
+We will create a new field called custom_id and store the new id provided by the client.
+At the report, we will change the id field with custom_id but keep the name as id.
+
+Definition of Ready: We need to confirm with the client the format of the custom id (Is it an integer? An string? What's the max of characters expected?)
+
+### Tasks
+1 - Add the database a field called custom_id at Agents table.
+Implementation details:
+Alter table Agents to create a new column called custom_id at Agents table.
+The type of field should consider the answers of Definition of Ready (eg. If it's a string with max characters of 64, it should be varchar(64)).
+Change the internal ORM and check if it's needed to change another piece of code to make sure that getShiftsByFacility will return the new custom_id at Agent metadata.
+Adapt tests to check if custom_id is returned at getShiftsByFacility.
+
+Acceptance criteria: getShiftsByFacility returning new custom_id at Agent metadata. With tests to guarantee it.
+Time estimates: 2 or 3 days considering that we could find other pieces of code to change in this adaptation.
+
+2 - Change the report presentation to show custom_id at id column
+Implementation details:
+Change the generateReport function to show custom_id at id column, without changing the name of the column.
+
+Acceptance criteria: The report should have the column id but the values should be the id informed by the client.
+Time estimates: 1 day.
